@@ -45,7 +45,7 @@ window_size = 4
 # decoder parameters
 dec_dim = 64
 beta_min = 0.05
-beta_max = 20.0
+beta_max = 0.9
 pe_scale = 1000  # 1 for `grad-tts-old.pt` checkpoint
 
 # training parameters

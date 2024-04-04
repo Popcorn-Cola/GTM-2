@@ -101,13 +101,14 @@ if __name__ == "__main__":
         model.load_state_dict(checkpoint)
         match = re.search(r'grad_(.*).pt', checkpoint_name[0])
         if match:
-            value = match.group(1)
+            value = int(match.group(1))
             print("Starting from epoch", value)
 
     else: 
         print(f'Checkpt does not exist, {checkpoint_path}')
         ckpt = model.state_dict()
         torch.save(ckpt, f"{log_dir}/grad_0.pt")
+        value = 0
 
 
     print(('Number of encoder + duration predictor parameters: %.2fm' % (model.encoder.nparams/1e6)))
@@ -128,7 +129,7 @@ if __name__ == "__main__":
 
     print('Start training...')
     iteration = 0
-    for epoch in range(1, n_epochs + 1):
+    for epoch in range(1, n_epochs + 1 - value):
         model.train()
         dur_losses = []
         prior_losses = []
@@ -178,19 +179,10 @@ if __name__ == "__main__":
         
         with open(f'{log_dir}/train.log', 'a') as f:
             f.write(log_msg)
-        
-        log_msg = 'Epoch %d: duration loss = %.3f ' % dur_loss.item()
-        log_msg += '| prior loss = %.3f ' % prior_loss.item()
-        log_msg += '| diffusion loss = %.3f\n' % diff_loss.item()
-        log_msg += '| Total loss = %.3f\n' % dur_loss.item() + prior_loss.item() + diff_loss.item()
 
-        with open(f'{log_dir}/train2.log', 'a') as f:
-            f.write(log_msg)
 
         if epoch % params.save_every > 0:
             continue
-
-                                 
 
         ckpt = model.state_dict()
         torch.save(ckpt, f"{log_dir}/grad_{epoch+int(value)}.pt")
