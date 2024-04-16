@@ -72,3 +72,4 @@ You can also perform *interactive inference* by running Jupyter Notebook `infere
 * HiFi-GAN model is used as vocoder, official github repository: [link](https://github.com/jik876/hifi-gan).
 * Monotonic Alignment Search algorithm is used for unsupervised duration modelling, official github repository: [link](https://github.com/jaywalnut310/glow-tts).
 * Phonemization utilizes CMUdict, official github repository: [link](https://github.com/cmusphinx/cmudict).
+# GTM-2
