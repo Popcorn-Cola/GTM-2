@@ -312,20 +312,15 @@ def main():
             args.outdir = os.path.dirname(args.gen_wavdir_or_wavscp)
     os.makedirs(args.outdir, exist_ok=True)
 
-    with open(f"{args.outdir}/utt2log_f0_rmse", "a") as f:
-        for utt_id in sorted(log_f0_rmse_dict.keys()):
-            log_f0_rmse = log_f0_rmse_dict[utt_id]
-            f.write(f"{utt_id} {log_f0_rmse:.4f}\n")
 
-    with open(f"{args.outdir}/log_f0_rmse_avg_result.txt", "a") as f:
-        f.write(f"#utterances: {len(gen_files)}\n")
-        f.write(f"Average: {mean_log_f0_rmse:.4f} ± {std_log_f0_rmse:.4f}")
-
-    with open(f"{args.outdir}/mean_log_f0_rmse.txt", "a") as f:
+    with open(f"{args.outdir}/mean_F0.txt", "a") as f:
         f.write(f"{mean_log_f0_rmse:.4f}\n")
 
-    with open(f"{args.outdir}/std_log_f0_rmse.txt", "a") as f:
+    with open(f"{args.outdir}/std_F0.txt", "a") as f:
         f.write(f"{std_log_f0_rmse:.4f}\n")
+
+    with open(f"{args.outdir}/mean_std_F0.txt", "a") as f:
+        f.write(f"{mean_log_f0_rmse:.4f} {std_log_f0_rmse:.4f}\n")
 
     logging.info("Successfully finished log-F0 RMSE evaluation.")
 

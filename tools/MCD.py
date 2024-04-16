@@ -266,6 +266,9 @@ def main():
     with open(f"{args.outdir}/std_mcd.txt", "a") as f:
         f.write(f"{std_mcd:.4f}\n")
 
+    with open(f"{args.outdir}/mean_std_mcd.txt", "a") as f:
+        f.write(f"{mean_mcd:.4f} {std_mcd:.4f}\n")
+
     logging.info("Successfully finished MCD evaluation.")
 
 

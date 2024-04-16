@@ -72,7 +72,7 @@ if __name__ == '__main__':
     parser.add_argument('-f', '--file', type=str, required=False, default='eval/original/text.txt',
                         help='location of file to contain validation text')
     parser.add_argument('-m', '--evaluation_mode', type=str, required=False, default='WAVPDFMEL_ENCODER',
-                        help='WAVPDFMEL  or LOSSES or WAVPDFMEL_ENCODER')
+                        help='WAVPDFMEL  or Valid_LOSSES or WAVPDFMEL_ENCODER')
     args = parser.parse_args()
 
     gt_dir = args.gt_dir
@@ -205,7 +205,7 @@ if __name__ == '__main__':
 
 
 
-    if evaluation_mode == 'LOSSES':
+    if evaluation_mode == 'Valid_LOSSES':
         batch_size = len(filepaths)//20
         print(f'length of valid list is {batch_size}')
         batch_collate = TextMelBatchCollate()
@@ -247,5 +247,5 @@ if __name__ == '__main__':
             log_msg += '| diffusion loss = %.3f' % np.mean(diff_loss)
             log_msg += '| Total loss = %.3f\n' % (np.mean(dur_loss) + np.mean(prior_loss) + np.mean(diff_loss))
 
-            with open('train.log', 'a') as f:
+            with open(f'{cvt_dir}/LOSSES.log', 'a') as f:
                 f.write(log_msg)
